@@ -41,6 +41,10 @@ public class Disc extends Product {
 	private String genre, image;
 	private DiscType type;
 
+    // 29.10.2018, Vincent Adam:
+    // added overall rating functionality
+    private double overallRating;
+
 	// (｡◕‿◕｡)
 	// Jede Disc besitzt mehrere Kommentare, eine "1 zu n"-Beziehung -> @OneToMany für JPA
 	// cascade gibt an, was mit den Kindelementen (Comment) passieren soll wenn das Parentelement (Disc) mit der Datenbank
@@ -58,7 +62,38 @@ public class Disc extends Product {
 		this.image = image;
 		this.genre = genre;
 		this.type = type;
+
+		// initializing the variable with 0
+		this.overallRating = 0;
+		calculateRating();
 	}
+
+    /**
+     * This method will calculate the overall rating for this disc based on all the comments
+     */
+	private void calculateRating() {
+	    double added = 0;
+	    for (Comment c : comments) {
+	        added += c.getRating();
+        }
+
+        overallRating = round(added / comments.size(), 2);
+    }
+
+    /**
+     *
+     * @param value
+     * @param places
+     * @return
+     */
+    private static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
+    }
 
 	public String getGenre() {
 		return genre;
@@ -66,6 +101,7 @@ public class Disc extends Product {
 
 	public void addComment(Comment comment) {
 		comments.add(comment);
+		calculateRating();
 	}
 
 	// (｡◕‿◕｡)
@@ -84,4 +120,8 @@ public class Disc extends Product {
 	public DiscType getType() {
 		return type;
 	}
+
+	public double getOverallRating() {
+	    return overallRating;
+    }
 }

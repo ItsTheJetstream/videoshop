@@ -32,7 +32,8 @@
                 <a class="header" th:text="${disc.name}">Last Action Hero</a>
                 <div class="meta">
                     <span th:text="${disc.genre}">Action</span>
-                    <span th:text="${{disc.price}}">9.99 €</span>
+                    <span th:text="${{disc.price}}">9.99 €</span> <br> <br>
+                    <i class="star icon"></i> <span th:text="${disc.overallRating}">rating data...</span>
                 </div>
                 <div class="description">
                     <p>Vorrat:</p>
@@ -71,15 +72,32 @@
             <div class="field">
                 <textarea id="comment" name="comment" cols="40" rows="5"></textarea><br/>
             </div>
-            <div class="field">
-                <label th:text="#{detail.comment.rating}" for="rating">Bewertung</label>
-                <input id="rating" name="rating" type="number" value="5" />
+
+            <div class="field" style="margin-bottom: 50px">
+                <label th:text="#{detail.comment.rating}">Bewertung</label>
+                <fieldset class="rating">
+                    <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Super-Duper Awesome! - 5 stars"></label>
+                    <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="HEY, Thats Pretty good! - 4 stars"></label>
+                    <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Ooof... - 3 stars"></label>
+                    <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="2/10, wouldn't watch again - IGN - 2 stars"></label>
+                    <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Never seen somthing shittier. - 1 star"></label>
+                </fieldset>
             </div>
+
             <button type="submit" class="ui labeled icon button">
                 <i class="icon edit"></i><span th:text="#{detail.comment.addComment}"> Kommentieren</span>
             </button>
         </form>
     </div>
 </div>
+
+<!--
+Footer, it is not pretty. but it works, so don't judge me, I have other things to do as well
+-->
+<footer>
+    <div style="text-align: center; padding: 30px 0 20px 0;">
+        <span>(edited by Vincent Adam for swt18w15)</span>
+    </div>
+</footer>
 </body>
 </html>
